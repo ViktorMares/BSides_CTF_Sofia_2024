@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSides Sofia 2024</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        #hintDisplay {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>This lab was created for Security BSides Sofia 2024</h1>
+    <h2>by Viktor Mares</h2>
+    <br>
+    <h3>Lab Objective:</h3>
+    <p>Access the resource at <b>/admin</b> - to do this, you will need to exploit a misconfiguration of the current JWT implementation</p>
+
+    <br>
+    <h3>API:</h3>
+    <p>
+        To explore and interact with the API, access the Swagger documentation at
+        <a href="/docs" target="_blank">/docs</a>.<br> The documentation provides detailed information
+        about available endpoints, request formats, and example responses.
+    </p>
+    <br>
+
+    <h3>Hints:</h3>
+    <p>
+        I suggest trying to figure out the misconfiguration yourself, however if you need a hand at any point, feel free to use some of the hints. <br><b>Good luck!</b>
+    </p>
+
+    <!-- Buttons for making GET requests for each hint -->
+    <button onclick="getHint(1)">Get Hint 1</button>
+    <button onclick="getHint(2)">Get Hint 2</button>
+    <button onclick="getHint(3)">Get Hint 3</button>
+    <button onclick="getHint(4)">Get Hint 4</button>
+    <button onclick="getHint(5)">Get Hint 5</button>
+    <button onclick="getHint(6)">Get Hint 6</button>
+    <button onclick="getHint(7)">Get Hint 7</button>
+    <button onclick="getHint(8)">Get Hint 8</button>
+
+    <!-- Hint display section -->
+    <div id="hintDisplay"></div>
+
+    <!-- JavaScript for making GET requests and updating the hint display -->
+    <script>
+        async function getHint(hintNumber) {
+            // Clear previous hints
+            const hintDisplay = document.getElementById('hintDisplay');
+            while (hintDisplay.firstChild) {
+                hintDisplay.removeChild(hintDisplay.firstChild);
+            }
+
+            const response = await fetch(`/hint/${hintNumber}`);
+            const data = await response.json();
+
+            // Display the new hint
+            const hintParagraph = document.createElement('p');
+            hintParagraph.textContent = `${data.hint}`;
+            hintDisplay.appendChild(hintParagraph);
+        }
+    </script>
+
+</body>
+</html>
