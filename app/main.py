@@ -19,10 +19,10 @@ async def read_root():
 
 
 # Read RSA keys from files
-with open('./config/private_key.pem', 'rb') as f:
+with open('../config/private_key.pem', 'rb') as f:
     private_key = f.read()
 
-with open('./config/public_key.pem', 'rb') as f:
+with open('../config/public_key.pem', 'rb') as f:
     public_key = f.read()
 
 
