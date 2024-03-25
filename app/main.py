@@ -19,16 +19,11 @@ async def read_root():
 
 
 # Read RSA keys from files
-with open('../config/private_key.pem', 'rb') as f:
+with open('./config/private_key.pem', 'rb') as f:
     private_key = f.read()
 
-with open('../config/public_key.pem', 'rb') as f:
+with open('./config/public_key.pem', 'rb') as f:
     public_key = f.read()
-
-
-jwks = JsonWebKey.import_key(private_key).as_json()
-with open("./.well-known/jwks.json", "w") as jwks_file:
-    jwks_file.write(jwks)
 
 
 @app.post("/create-token", response_model=dict)
@@ -73,7 +68,7 @@ async def is_admin(credentials: Annotated[HTTPAuthorizationCredentials, Depends(
 
         if role == "admin":
             response.status_code = status.HTTP_200_OK
-            return {"message": "Welcome, Admin!"}
+            return {"message": "Welcome, Admin! You have successfully completed the BSides Sofia 2024 Challenge!"}
 
         elif role == "NOTadmin":
             response.status_code = status.HTTP_403_FORBIDDEN
@@ -87,7 +82,12 @@ async def is_admin(credentials: Annotated[HTTPAuthorizationCredentials, Depends(
         response.status_code = status.HTTP_401_UNAUTHORIZED
         return HTTPException(status_code=401, detail="Unable to verity token. You are not authorized to access this resource!")
 
-   
+
+# Add Discovery endpoint
+@app.get("/jwks")
+def get_jwk():
+    jwks = JsonWebKey.import_key(public_key).as_json()
+    return jwks
 
 
 # Enumerate hints using path parameters
