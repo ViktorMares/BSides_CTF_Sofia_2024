@@ -1,7 +1,21 @@
 # This lab was created for Security BSides Sofia 2024 by Viktor Mares   
 
+
+# Installation & Usage (Docker)
+```
+git clone https://github.com/ViktorMares/BSides_CTF_Sofia_2024.git
+```
+```
+cd BSides_CTF_Sofia_2024
+```
+```
+docker compose up --build
+```
+```
+access the app on http://0.0.0.0:8000
+```
    
-## Installation & Usage
+## Installation & Usage (Manual)
 ```
 git clone https://github.com/ViktorMares/BSides_CTF_Sofia_2024.git
 ```
