@@ -1,0 +1,9 @@
+.git
+.gitignore
+__pycache__/
+*.py[cod]
+*.log
+.env
+.vscode
+.idea
+*.pytest_cache/
