@@ -28,15 +28,22 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Build an image from Dockerfile
+        
+      - name: Compute image tag variables
+        id: vars
         run: |
-          docker build -t docker.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.sha }} .
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          REPO=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
+          echo "IMAGE_NAME=docker.io/$OWNER/$REPO" >> $GITHUB_ENV
+          
+      - name: Build Docker image
+        run: |
+          docker build -t "$IMAGE_NAME:${{ github.sha }}" .
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
         with:
-          image-ref: 'docker.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.sha }}'
+          image-ref: "$IMAGE_NAME:${{ github.sha }}"
           format: 'template'
           template: '@/contrib/sarif.tpl'
           output: 'trivy-results.sarif'
