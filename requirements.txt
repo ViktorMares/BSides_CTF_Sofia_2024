@@ -1,5 +1,5 @@
 fastapi==0.109.1
-Authlib==1.0.1
+Authlib==1.6.5
 uvicorn==0.27.0
 python-multipart==0.0.9
 anyio>=4.4.0 # not directly required, pinned by Snyk to avoid a vulnerability
