@@ -1,0 +1,13 @@
+name: cupel
+on:
+  push:
+  # Lets cupel start a scan from the dashboard, and run one on a schedule. Without it a
+  # workflow can only be triggered by a push, and a "Scan now" button has nothing to call.
+  workflow_dispatch:
+
+jobs:
+  scan:
+    uses: cupel-sh/scan-workflow/.github/workflows/scan.yml@v1
+    permissions:
+      contents: read
+      id-token: write
